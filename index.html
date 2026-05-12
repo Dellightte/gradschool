@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSc Application Tracker — Fall 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:       #1a1a2e;
+  --ink-mid:   #3d3d5c;
+  --ink-soft:  #7a7a9a;
+  --parchment: #f6f3ed;
+  --cream:     #fffdf8;
+  --gold:      #b8860b;
+  --gold-l:    #d4a843;
+  --gold-dim:  rgba(184,134,11,0.12);
+  --teal:      #1a6b72;
+  --teal-l:    #2d9aa3;
+  --teal-dim:  rgba(26,107,114,0.1);
+  --rose:      #8b3a52;
+  --rose-dim:  rgba(139,58,82,0.1);
+  --sage:      #3d6b4f;
+  --sage-dim:  rgba(61,107,79,0.1);
+  --border:    rgba(26,26,46,0.1);
+  --shadow:    0 2px 16px rgba(26,26,46,0.08);
+  --radius:    10px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--parchment);
+  color: var(--ink);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(26,107,114,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(184,134,11,0.05) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--ink);
+  color: white;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: white;
+  flex-shrink: 0;
+}
+.logo span { color: var(--gold-l); }
+
+.header-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.global-progress-bar {
+  width: 160px;
+  height: 5px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.global-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal-l), var(--gold-l));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.global-pct {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+
+.deadline-badge {
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(184,134,11,0.2);
+  color: var(--gold-l);
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(184,134,11,0.3);
+  white-space: nowrap;
+}
+
+.sheet-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: white;
+  border: none;
+  border-radius: 7px;
+  padding: 5px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+.sheet-btn:hover { background: #e8f5e9; transform: translateY(-1px); }
+.sheet-btn svg { flex-shrink: 0; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: calc(100vh - 64px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  padding: 1.5rem 0.75rem;
+  border-right: 1px solid var(--border);
+  background: var(--cream);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.stage-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.stage-btn:hover { background: rgba(26,26,46,0.05); }
+.stage-btn.active { background: var(--teal-dim); }
+
+.stage-num {
+  font-size: 10px;
+  font-weight: 600;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--ink-soft);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.stage-btn.active .stage-num { background: var(--teal); color: white; }
+.stage-btn.done .stage-num { background: var(--sage); color: white; }
+
+.stage-info { flex: 1; min-width: 0; }
+.stage-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.stage-btn.active .stage-name { color: var(--teal); font-weight: 600; }
+
+.stage-mini-bar {
+  margin-top: 3px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.stage-mini-fill {
+  height: 100%;
+  background: var(--teal-l);
+  border-radius: 99px;
+  transition: width 0.4s;
+}
+.stage-btn.done .stage-mini-fill { background: var(--sage); }
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.75rem 0.75rem;
+}
+
+.reset-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-soft);
+  transition: all 0.15s;
+}
+.reset-btn:hover { background: var(--rose-dim); color: var(--rose); }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  padding: 2rem 1.5rem;
+  max-width: 820px;
+}
+
+/* ── STAGE CARD ── */
+.stage-card {
+  display: none;
+  animation: fadeUp 0.25s ease;
+}
+.stage-card.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.stage-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stage-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.stage-title-block {}
+.stage-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.stage-subtitle {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 3px;
+}
+
+.stage-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--shadow);
+}
+.spr-label { font-size: 12px; color: var(--ink-soft); }
+.spr-bar { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.spr-fill { height: 100%; border-radius: 99px; transition: width 0.4s ease; }
+.spr-count { font-size: 13px; font-weight: 600; color: var(--ink-mid); white-space: nowrap; }
+
+/* ── STEP ── */
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s, border-color 0.2s;
+  overflow: hidden;
+}
+.step:hover { box-shadow: 0 4px 24px rgba(26,26,46,0.12); }
+.step.completed { border-color: rgba(61,107,79,0.3); background: #fafffc; }
+
+.step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+}
+
+.step-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.2s;
+  cursor: pointer;
+  background: white;
+}
+.step.completed .step-check {
+  background: var(--sage);
+  border-color: var(--sage);
+}
+.step-check svg { display: none; }
+.step.completed .step-check svg { display: block; }
+
+.step-body { flex: 1; min-width: 0; }
+.step-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.step.completed .step-num { color: var(--sage); }
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1px;
+  line-height: 1.3;
+}
+.step.completed .step-title { color: var(--sage); text-decoration: line-through; text-decoration-color: rgba(61,107,79,0.4); }
+
+.step-expand-icon {
+  font-size: 18px;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  margin-top: 2px;
+  line-height: 1;
+}
+.step.open .step-expand-icon { transform: rotate(180deg); }
+
+.step-details {
+  display: none;
+  padding: 0 1.1rem 1rem 3.1rem;
+  border-top: 1px solid var(--border);
+  margin-top: -1px;
+}
+.step.open .step-details { display: block; padding-top: 0.85rem; }
+
+.step-detail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.step-detail-list li {
+  font-size: 13.5px;
+  color: var(--ink-mid);
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.6;
+}
+.step-detail-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--ink-soft);
+  font-size: 11px;
+  top: 3px;
+}
+
+.step-tip {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 7px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--ink-mid);
+  background: var(--gold-dim);
+  border-left: 3px solid var(--gold);
+}
+
+.step-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.tag-urgent  { background: rgba(139,58,82,0.12); color: var(--rose); }
+.tag-ongoing { background: var(--teal-dim); color: var(--teal); }
+.tag-doc     { background: var(--gold-dim); color: var(--gold); }
+
+/* ── COMPLETED CELEBRATION ── */
+.stage-complete-banner {
+  display: none;
+  background: linear-gradient(135deg, var(--sage-dim), var(--teal-dim));
+  border: 1px solid rgba(61,107,79,0.3);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.stage-complete-banner.show { display: block; }
+.scb-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--sage); }
+.scb-sub { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+
+/* ── NAV BUTTONS ── */
+.stage-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.nav-btn {
+  padding: 0.65rem 1.4rem;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--ink-mid);
+  transition: all 0.15s;
+}
+.nav-btn:hover { background: var(--parchment); }
+.nav-btn.primary {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+  margin-left: auto;
+}
+.nav-btn.primary:hover { background: var(--ink-mid); }
+.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── OVERVIEW ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.ov-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+.ov-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+.ov-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1; }
+.ov-sub { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  main { padding: 1rem; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .global-progress-bar, .deadline-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">MSc<span> Tracker</span></div>
+  <div class="header-meta">
+    <div class="global-progress-bar">
+      <div class="global-progress-fill" id="globalFill" style="width:0%"></div>
+    </div>
+    <div class="global-pct" id="globalPct">0% complete</div>
+    <div class="deadline-badge">🎓 Fall 2027 Admission</div>
+    <a class="sheet-btn" href="https://docs.google.com/spreadsheets/d/1wj3w0UensnueZisQ1JjHtLDB7VhYtRsrr5vf67d2RHk/edit?usp=sharing" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="2" fill="#0F9D58" opacity="0.15"/>
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#0F9D58" stroke-width="1.5"/>
+        <line x1="3" y1="8" x2="21" y2="8" stroke="#0F9D58" stroke-width="1.2"/>
+        <line x1="3" y1="13" x2="21" y2="13" stroke="#0F9D58" stroke-width="1.2"/>
+        <line x1="3" y1="18" x2="21" y2="18" stroke="#0F9D58" stroke-width="1.2"/>
+        <line x1="9" y1="3" x2="9" y2="21" stroke="#0F9D58" stroke-width="1.2"/>
+        <line x1="15" y1="3" x2="15" y2="21" stroke="#0F9D58" stroke-width="1.2"/>
+      </svg>
+      Application Tracker
+    </a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Stages</div>
+    <div id="sidebarNav"></div>
+    <div class="sidebar-divider"></div>
+    <button class="reset-btn" onclick="confirmReset()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      Reset all progress
+    </button>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="mainContent"></main>
+
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const STAGES = [
+  {
+    id: 's1',
+    name: 'Build the Foundation',
+    icon: '🏗️',
+    color: '#1a6b72',
+    colorDim: 'rgba(26,107,114,0.1)',
+    deadline: 'Finish within 2 weeks',
+    steps: [
+      {
+        id: 's1-1',
+        title: 'Create Your Master\'s Application Folder',
+        details: [
+          'CV', 'Transcripts', 'Certificates', 'Passport',
+          'Research Papers', 'SOP Drafts', 'Recommendation Letters',
+          'Universities', 'Supervisor Emails'
+        ],
+        tip: 'Use Google Drive or a local folder — just pick one and stay consistent. You\'ll be adding files to these for the next 12 months.'
+      },
+      {
+        id: 's1-2',
+        title: 'Open Your Application Tracker Spreadsheet',
+        details: [
+          'University', 'Country', 'Program', 'Deadline',
+          'Funding Available?', 'Supervisor Name', 'Contacted?',
+          'Response?', 'Notes'
+        ],
+        tip: 'Google Sheets works perfectly. This becomes your command centre for the entire application cycle.'
+      },
+      {
+        id: 's1-3',
+        title: 'Write Your Research Interests in Plain English',
+        details: [
+          'What healthcare problems have I seen in clinical practice?',
+          'What problems do I want to solve through research?',
+          'Why do I want formal research training (MSc)?',
+          'What specific topics interest me most?'
+        ],
+        tip: 'Do NOT worry about sounding smart here. Write plainly. This document becomes the raw material for your SOP and supervisor emails.'
+      },
+      {
+        id: 's1-4',
+        title: 'Choose Your Main Research Direction',
+        details: [
+          'Pick ONE primary direction (e.g. Translational medicine, Cardiovascular outcomes, Healthcare systems, Immunomodulation, Digital health)',
+          'Pick ONE supporting direction (e.g. AI in healthcare, Emergency medicine systems, Global health)'
+        ],
+        tip: 'Focus is everything. Supervisors are drawn to candidates who know what they want — not candidates who want everything.'
+      },
+      {
+        id: 's1-5',
+        title: 'Build Version 1 of Your Academic CV',
+        details: [
+          'Education', 'Clinical experience', 'Leadership & roles',
+          'Awards & recognition', 'Research interests', 'Publications or presentations',
+          'Projects', 'Skills'
+        ],
+        tip: 'Do not aim for perfection. Version 1 just needs to exist. You\'ll refine it multiple times over the coming months.'
+      },
+      {
+        id: 's1-6',
+        title: 'Update Your LinkedIn Profile',
+        details: [
+          'Headline (e.g. "MBChB | Clinical Researcher | MSc Applicant — Fall 2027")',
+          'About section (3–4 sentences: background, interests, goals)',
+          'Experience (all clinical and academic roles)',
+          'Awards & recognitions',
+          'Interests (relevant research areas)'
+        ],
+        tip: 'Many supervisors will look you up. Make sure what they find is polished and research-forward.'
+      }
+    ]
+  },
+  {
+    id: 's2',
+    name: 'Build Research Signals',
+    icon: '📡',
+    color: '#8b3a52',
+    colorDim: 'rgba(139,58,82,0.1)',
+    deadline: 'June – July 2026',
+    steps: [
+      {
+        id: 's2-1',
+        title: 'Pick ONE Research Output to Start',
+        details: [
+          'Case report',
+          'Literature review',
+          'Retrospective audit',
+          'Conference abstract',
+          'Commentary piece',
+          'PERKS concept paper'
+        ],
+        tip: 'Only one. Starting multiple outputs at once usually means finishing none. Pick what is most feasible given your current access to data and time.',
+        tag: 'urgent'
+      },
+      {
+        id: 's2-2',
+        title: 'Create a Research Reading Routine',
+        details: [
+          'Read 2–3 papers per week minimum',
+          'Use PubMed and Google Scholar',
+          'Focus on: abstracts, introductions, conclusions',
+          'Keep brief notes on papers relevant to your research direction'
+        ],
+        tip: 'Reading widely now means you\'ll have things to say in supervisor emails and interviews later.',
+        tag: 'ongoing'
+      },
+      {
+        id: 's2-3',
+        title: 'Install Your Research Tools',
+        details: [
+          'Zotero — reference manager (free)',
+          'Google Scholar alerts — set for your key topics',
+          'PDF organization folders (mirror your application folder structure)'
+        ],
+        tip: 'Zotero will save you hours when writing. Set it up now, not during your literature review.'
+      },
+      {
+        id: 's2-4',
+        title: 'Request Your Official Transcript',
+        details: [
+          'Contact your university registrar or records office',
+          'Request official sealed transcript (and a digital version if possible)',
+          'Ask about typical processing time',
+          'Store in your Transcripts folder'
+        ],
+        tip: 'Do NOT delay this. Some universities take 4–8 weeks. Start the process now.',
+        tag: 'urgent'
+      },
+      {
+        id: 's2-5',
+        title: 'Scan and Organize Your Key Documents',
+        details: [
+          'Passport (photo page)',
+          'MBChB certificate',
+          'Official transcript',
+          'Awards and certificates',
+          'Medical licences (if relevant)',
+          'Save all as clear, properly named PDFs'
+        ],
+        tag: 'doc'
+      }
+    ]
+  },
+  {
+    id: 's3',
+    name: 'Build Your School List',
+    icon: '🗺️',
+    color: '#b8860b',
+    colorDim: 'rgba(184,134,11,0.1)',
+    deadline: 'July 2026',
+    steps: [
+      {
+        id: 's3-1',
+        title: 'Select Your Target Countries',
+        details: [
+          'Canada (primary)',
+          '2–3 European countries — recommended: Germany, Netherlands, Sweden, Belgium'
+        ],
+        tip: 'Germany and the Netherlands offer many English-language MSc programs with strong research cultures. Sweden and Belgium have excellent funding schemes for international students.'
+      },
+      {
+        id: 's3-2',
+        title: 'Find 15 Target Universities',
+        details: [
+          '8–10 in Canada',
+          '5–7 in Europe',
+          'Add each to your tracker spreadsheet with country, program, deadline, and funding notes'
+        ]
+      },
+      {
+        id: 's3-3',
+        title: 'Identify Programs at Each University',
+        details: [
+          'Find the specific MSc programs relevant to your research direction',
+          'Record exact application deadlines',
+          'Note all requirements (GPA, English test, references, writing samples)'
+        ],
+        tip: 'Some programs have rolling admissions, others have hard deadlines. The earlier the deadline, the earlier you must prepare.'
+      },
+      {
+        id: 's3-4',
+        title: 'Identify Potential Supervisors (20–40 total)',
+        details: [
+          'Find 3–5 professors per university',
+          'Read their lab pages and recent publications',
+          'Save their profiles and email addresses',
+          'Note whether they are actively accepting graduate students'
+        ],
+        tip: 'In Canada especially, having a supervisor willing to take you is often a prerequisite for admission — not just a nice-to-have.'
+      },
+      {
+        id: 's3-5',
+        title: 'Read at Least One Paper from Each Supervisor',
+        details: [
+          'Look for their research themes',
+          'Assess whether your interests genuinely overlap',
+          'Note specific projects or findings you can reference in outreach emails'
+        ],
+        tip: 'You are looking for real overlap — not the ability to fake it. Supervisors can tell the difference immediately.'
+      }
+    ]
+  },
+  {
+    id: 's4',
+    name: 'Prepare for Outreach',
+    icon: '✉️',
+    color: '#5a4a8a',
+    colorDim: 'rgba(90,74,138,0.1)',
+    deadline: 'August 2026',
+    steps: [
+      {
+        id: 's4-1',
+        title: 'Write Version 1 of Your Research Interest Paragraph',
+        details: [
+          'Keep it short: 3–5 sentences maximum',
+          'Focused: one or two specific areas',
+          'Connected to your clinical experiences and observations',
+          'Written in plain, clear language — no jargon'
+        ],
+        tip: 'This paragraph will appear in nearly every supervisor email and many SOPs. Getting it right now saves enormous time.'
+      },
+      {
+        id: 's4-2',
+        title: 'Write a General Professor Email Template',
+        details: [
+          'Who you are (2 sentences max)',
+          'Your research interests (use your research interest paragraph)',
+          'Why their specific work interests you (reference a paper or project)',
+          'A clear, polite request — for a call, for information on openings, or to express intent to apply'
+        ],
+        tip: 'Personalization is everything. A generic email gets ignored. A specific one — showing you read their work — gets remembered.'
+      },
+      {
+        id: 's4-3',
+        title: 'Refine and Export Your CV',
+        details: [
+          'Update formatting and consistency',
+          'Sharpen wording throughout',
+          'Confirm your research interests section reflects your chosen direction',
+          'Export as a clean, properly named PDF'
+        ],
+        tag: 'doc'
+      },
+      {
+        id: 's4-4',
+        title: 'Contact Your First 5 Professors',
+        details: [
+          'Personalize every email — no copy-paste',
+          'Attach your CV',
+          'Track response or no-response in your spreadsheet',
+          'Give each 2 weeks before following up'
+        ],
+        tip: 'Rejection and silence are the default. Send the email anyway. The goal is volume AND quality together.',
+        tag: 'urgent'
+      },
+      {
+        id: 's4-5',
+        title: 'Continue Supervisor Outreach Weekly',
+        details: [
+          'Target 3–5 new professors per week',
+          'Maintain your tracking spreadsheet',
+          'Follow up politely after 2–3 weeks of silence',
+          'Do NOT stop after rejections or non-responses'
+        ],
+        tip: 'This step never fully ends until you have an offer. Make it a weekly habit.',
+        tag: 'ongoing'
+      }
+    ]
+  },
+  {
+    id: 's5',
+    name: 'Application Materials',
+    icon: '📝',
+    color: '#3d6b4f',
+    colorDim: 'rgba(61,107,79,0.1)',
+    deadline: 'September – October 2026',
+    steps: [
+      {
+        id: 's5-1',
+        title: 'Write Version 1 of Your SOP',
+        details: [
+          'Background — who you are, your clinical training',
+          'Clinical experiences — what you observed, what questions arose',
+          'Research interests — what you want to investigate and why',
+          'Why this field — the intellectual and personal case for research',
+          'Career goals — where you see yourself in 5–10 years',
+          'Why this university — specific lab, supervisor, or program features'
+        ],
+        tip: 'Version 1 does not need to be good. It needs to exist. You will revise it many times.'
+      },
+      {
+        id: 's5-2',
+        title: 'Revise Your SOP Multiple Times',
+        details: [
+          'Revise for clarity — is every sentence doing work?',
+          'Revise for focus — does it stay on your research story?',
+          'Revise for flow — does it read as one coherent narrative?',
+          'Revise for specificity — are your claims concrete, not vague?'
+        ],
+        tip: 'Most applicants submit their second or third draft. The strongest applicants submit their eighth or ninth.',
+        tag: 'ongoing'
+      },
+      {
+        id: 's5-3',
+        title: 'Ask for Your Recommendation Letters',
+        details: [
+          'Choose 2–3 referees: consultants, professors, or senior mentors who know your work well',
+          'Ask early — ideally 2–3 months before earliest deadline',
+          'Provide them with your CV, a draft SOP, and all relevant deadlines',
+          'Follow up politely 3–4 weeks before each deadline'
+        ],
+        tip: 'Give referees everything they need to write a strong, specific letter. A weak or generic reference can sink an otherwise strong application.'
+      },
+      {
+        id: 's5-4',
+        title: 'Check English Language Test Requirements',
+        details: [
+          'Check IELTS and TOEFL requirements for every school on your list',
+          'Note minimum scores and which test each school accepts',
+          'Check if you qualify for any exemptions (e.g. prior English-medium education)'
+        ]
+      },
+      {
+        id: 's5-5',
+        title: 'Book English Test if Required',
+        details: [
+          'Book your IELTS or TOEFL sitting at least 6–8 weeks before your earliest application deadline',
+          'Allow time for a resit if needed'
+        ],
+        tip: 'Do NOT wait until deadlines approach. Test centres fill up and scores take time to arrive.',
+        tag: 'urgent'
+      }
+    ]
+  },
+  {
+    id: 's6',
+    name: 'Final Application Prep',
+    icon: '🎯',
+    color: '#b8860b',
+    colorDim: 'rgba(184,134,11,0.1)',
+    deadline: 'October – November 2026',
+    steps: [
+      {
+        id: 's6-1',
+        title: 'Finalize Your University List',
+        details: [
+          'Cut programs that are a poor research fit',
+          'Remove programs you cannot afford (tuition + living costs)',
+          'Keep a mix: reach, realistic, and safe schools',
+          'Aim for 10–15 final programs'
+        ]
+      },
+      {
+        id: 's6-2',
+        title: 'Tailor Your SOP for Each School',
+        details: [
+          'Mention the specific supervisor(s) you hope to work with',
+          'Reference the specific lab or research group',
+          'Connect your interests to the program\'s known strengths',
+          'Keep each version feeling personal, not copy-pasted'
+        ],
+        tag: 'ongoing'
+      },
+      {
+        id: 's6-3',
+        title: 'Verify All Application Requirements',
+        details: [
+          'GPA requirements (some programs have minimums)',
+          'Number of references required',
+          'Transcript format (official sealed vs. digital)',
+          'Writing samples (some programs request these)',
+          'Funding application forms (some require separate submissions)'
+        ],
+        tag: 'urgent'
+      },
+      {
+        id: 's6-4',
+        title: 'Prepare Funding Applications',
+        details: [
+          'DAAD — German Academic Exchange Service (excellent for Germany)',
+          'Erasmus Mundus — EU-funded joint Master\'s programmes',
+          'Departmental scholarships — check each university\'s financial aid page',
+          'Supervisor funding — some supervisors have grants covering tuition and stipend'
+        ],
+        tip: 'Apply for every scholarship you are eligible for. Funding changes everything — it can turn a financially impossible programme into a real option.'
+      }
+    ]
+  },
+  {
+    id: 's7',
+    name: 'Submission Period',
+    icon: '🚀',
+    color: '#1a6b72',
+    colorDim: 'rgba(26,107,114,0.1)',
+    deadline: 'November 2026 – January 2027',
+    steps: [
+      {
+        id: 's7-1',
+        title: 'Submit Canadian Applications First',
+        details: [
+          'Canadian graduate deadlines often fall November–January',
+          'Submit each application well before its deadline — not on the day',
+          'Confirm all components (references, transcripts, English scores) have arrived'
+        ],
+        tip: 'Canadian programs often require supervisors to be on board before admission. If you have confirmed supervisor interest, note this in your application.',
+        tag: 'urgent'
+      },
+      {
+        id: 's7-2',
+        title: 'Submit European Applications',
+        details: [
+          'Many European programs have later deadlines (January–March)',
+          'Some have rolling admissions — apply as early as possible',
+          'German programs via uni-assist may have additional steps'
+        ]
+      },
+      {
+        id: 's7-3',
+        title: 'Confirm Recommendation Letters Were Submitted',
+        details: [
+          'Check your application portals for reference status',
+          'Follow up with referees politely if letters are missing',
+          'Thank referees once letters are confirmed received'
+        ]
+      },
+      {
+        id: 's7-4',
+        title: 'Track All Submitted Applications',
+        details: [
+          'Update your spreadsheet: submitted date, expected response timeline, portal login details',
+          'Set calendar reminders for expected decision windows',
+          'Check portals regularly — some programs email, others only update portals'
+        ]
+      }
+    ]
+  },
+  {
+    id: 's8',
+    name: 'Post-Application',
+    icon: '🌟',
+    color: '#3d6b4f',
+    colorDim: 'rgba(61,107,79,0.1)',
+    deadline: 'January – April 2027',
+    steps: [
+      {
+        id: 's8-1',
+        title: 'Prepare for Interviews',
+        details: [
+          'Practice discussing your research interests (clearly and concisely)',
+          'Prepare to walk through your clinical experiences',
+          'Be ready to articulate your long-term career goals',
+          'Have 1–2 specific research ideas you could elaborate on',
+          'Research the lab\'s current projects so you can ask informed questions'
+        ],
+        tip: 'Interviews are conversations, not interrogations. The best interviews feel like two researchers excited about the same problem.'
+      },
+      {
+        id: 's8-2',
+        title: 'Continue Networking with Supervisors',
+        details: [
+          'Stay in touch with supervisors who expressed interest',
+          'Share relevant papers or updates on your research output if appropriate',
+          'Be professional and warm — not pushy'
+        ],
+        tag: 'ongoing'
+      },
+      {
+        id: 's8-3',
+        title: 'Review Offers Carefully',
+        details: [
+          'Funding package (tuition covered? stipend? for how long?)',
+          'Supervisor fit (is this someone you could work with closely for 1–2 years?)',
+          'Research environment (lab size, departmental culture, access to collaborators)',
+          'Living costs relative to funding',
+          'Long-term opportunities (alumni outcomes, industry links, publication record of the lab)'
+        ],
+        tip: 'An offer with a stipend is worth far more than a prestigious name without funding. Research the real cost of living, not just the tuition fee.'
+      },
+      {
+        id: 's8-4',
+        title: 'Accept Your Offer',
+        details: [
+          'Send a formal acceptance email and sign any required documents',
+          'Notify other programs promptly (they have waitlisted candidates)',
+          'Begin visa preparation for your destination country',
+          'Start financial planning (flights, housing deposit, first month expenses)',
+          'Begin relocation planning'
+        ],
+        tip: 'Congratulations — you earned this. Now begin the next journey.'
+      }
+    ]
+  }
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'msc-tracker-v1';
+let state = { checked: {}, currentStage: 0, openSteps: {} };
+
+function loadState() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) state = { ...state, ...JSON.parse(s) };
+  } catch(e) {}
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
+function stageProgress(stage) {
+  let done = 0;
+  stage.steps.forEach(step => { if (state.checked[step.id]) done++; });
+  return { done, total: stage.steps.length };
+}
+
+function globalProgress() {
+  let done = 0, total = 0;
+  STAGES.forEach(s => { s.steps.forEach(step => { total++; if (state.checked[step.id]) done++; }); });
+  return { done, total };
+}
+
+function updateGlobalBar() {
+  const { done, total } = globalProgress();
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('globalFill').style.width = pct + '%';
+  document.getElementById('globalPct').textContent = pct + '% complete';
+}
+
+// ─── RENDER SIDEBAR ─────────────────────────────────────────────────────────
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = '';
+  STAGES.forEach((stage, i) => {
+    const { done, total } = stageProgress(stage);
+    const isActive = state.currentStage === i;
+    const isDone = done === total;
+    const btn = document.createElement('button');
+    btn.className = 'stage-btn' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
+    btn.innerHTML = `
+      <div class="stage-num">${isDone ? '✓' : i + 1}</div>
+      <div class="stage-info">
+        <span class="stage-name">${stage.name}</span>
+        <div class="stage-mini-bar">
+          <div class="stage-mini-fill" style="width:${total ? done/total*100 : 0}%"></div>
+        </div>
+      </div>
+    `;
+    btn.onclick = () => goToStage(i);
+    nav.appendChild(btn);
+  });
+}
+
+// ─── RENDER MAIN ────────────────────────────────────────────────────────────
+function renderMain() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = '';
+
+  // Overview cards
+  const { done: gDone, total: gTotal } = globalProgress();
+  const stagesComplete = STAGES.filter((s, i) => stageProgress(s).done === s.steps.length).length;
+
+  const ov = document.createElement('div');
+  ov.className = 'overview-grid';
+  ov.innerHTML = `
+    <div class="ov-card">
+      <div class="ov-label">Steps Completed</div>
+      <div class="ov-value">${gDone}<span style="font-size:18px;color:var(--ink-soft)">/${gTotal}</span></div>
+      <div class="ov-sub">across all 8 stages</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-label">Stages Complete</div>
+      <div class="ov-value">${stagesComplete}<span style="font-size:18px;color:var(--ink-soft)">/8</span></div>
+      <div class="ov-sub">on track for Fall 2027</div>
+    </div>
+  `;
+  main.appendChild(ov);
+
+  // Stage cards
+  STAGES.forEach((stage, i) => {
+    const card = buildStageCard(stage, i);
+    main.appendChild(card);
+  });
+}
+
+function buildStageCard(stage, idx) {
+  const { done, total } = stageProgress(stage);
+  const isActive = state.currentStage === idx;
+  const isDone = done === total;
+  const pct = total ? Math.round(done / total * 100) : 0;
+
+  const card = document.createElement('div');
+  card.className = 'stage-card' + (isActive ? ' active' : '');
+  card.id = 'stage-' + idx;
+
+  // Complete banner
+  const banner = `
+    <div class="stage-complete-banner ${isDone ? 'show' : ''}" id="banner-${idx}">
+      <div class="scb-title">✓ Stage ${idx + 1} Complete</div>
+      <div class="scb-sub">${stage.name} — all steps done. Move to the next stage when ready.</div>
+    </div>
+  `;
+
+  // Steps
+  const stepsHtml = stage.steps.map(step => buildStep(step, idx)).join('');
+
+  // Nav
+  const prevDisabled = idx === 0 ? 'disabled' : '';
+  const nextDisabled = idx === STAGES.length - 1 ? 'disabled' : '';
+
+  card.innerHTML = `
+    <div class="stage-header">
+      <div class="stage-icon" style="background:${stage.colorDim}">${stage.icon}</div>
+      <div class="stage-title-block">
+        <div class="stage-title">Stage ${idx + 1}: ${stage.name}</div>
+        <div class="stage-subtitle">📅 ${stage.deadline}</div>
+      </div>
+    </div>
+    ${banner}
+    <div class="stage-progress-row">
+      <div class="spr-label">Progress</div>
+      <div class="spr-bar">
+        <div class="spr-fill" id="spr-fill-${idx}" style="width:${pct}%;background:${stage.color}"></div>
+      </div>
+      <div class="spr-count" id="spr-count-${idx}">${done}/${total} steps</div>
+    </div>
+    <div id="steps-${idx}">${stepsHtml}</div>
+    <div class="stage-nav">
+      <button class="nav-btn" ${prevDisabled} onclick="goToStage(${idx - 1})">← Previous</button>
+      <button class="nav-btn primary" ${nextDisabled} onclick="goToStage(${idx + 1})">Next Stage →</button>
+    </div>
+  `;
+
+  return card;
+}
+
+function buildStep(step, stageIdx) {
+  const isDone = !!state.checked[step.id];
+  const isOpen = !!state.openSteps[step.id];
+
+  const tagMap = { urgent: 'Urgent', ongoing: 'Ongoing', doc: 'Document' };
+  const tagHtml = step.tag
+    ? `<span class="step-tag tag-${step.tag}">${tagMap[step.tag]}</span>`
+    : '';
+
+  const detailsHtml = step.details
+    ? `<ul class="step-detail-list">${step.details.map(d => `<li>${d}</li>`).join('')}</ul>`
+    : '';
+
+  const tipHtml = step.tip
+    ? `<div class="step-tip">💡 ${step.tip}</div>`
+    : '';
+
+  return `
+    <div class="step ${isDone ? 'completed' : ''} ${isOpen ? 'open' : ''}" id="step-${step.id}">
+      <div class="step-header">
+        <div class="step-check" onclick="toggleCheck('${step.id}', ${stageIdx}, event)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="step-body" onclick="toggleOpen('${step.id}')">
+          <div class="step-num">Step ${step.id.split('-')[0].replace('s','')}.${step.id.split('-')[1]} ${tagHtml}</div>
+          <div class="step-title">${step.title}</div>
+        </div>
+        <div class="step-expand-icon" onclick="toggleOpen('${step.id}')">⌄</div>
+      </div>
+      <div class="step-details">
+        ${detailsHtml}
+        ${tipHtml}
+      </div>
+    </div>
+  `;
+}
+
+// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+function toggleCheck(stepId, stageIdx, e) {
+  e.stopPropagation();
+  state.checked[stepId] = !state.checked[stepId];
+  saveState();
+  refreshStage(stageIdx);
+  updateGlobalBar();
+  renderSidebar();
+}
+
+function toggleOpen(stepId) {
+  state.openSteps[stepId] = !state.openSteps[stepId];
+  saveState();
+  const el = document.getElementById('step-' + stepId);
+  if (el) el.classList.toggle('open', !!state.openSteps[stepId]);
+}
+
+function goToStage(idx) {
+  if (idx < 0 || idx >= STAGES.length) return;
+  const old = document.querySelector('.stage-card.active');
+  if (old) old.classList.remove('active');
+  state.currentStage = idx;
+  saveState();
+  document.getElementById('stage-' + idx).classList.add('active');
+  renderSidebar();
+  document.getElementById('mainContent').scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function refreshStage(stageIdx) {
+  const stage = STAGES[stageIdx];
+  const { done, total } = stageProgress(stage);
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const isDone = done === total;
+
+  // Update progress bar
+  const fill = document.getElementById('spr-fill-' + stageIdx);
+  const count = document.getElementById('spr-count-' + stageIdx);
+  if (fill) fill.style.width = pct + '%';
+  if (count) count.textContent = `${done}/${total} steps`;
+
+  // Update complete banner
+  const banner = document.getElementById('banner-' + stageIdx);
+  if (banner) banner.classList.toggle('show', isDone);
+
+  // Update step appearance
+  stage.steps.forEach(step => {
+    const el = document.getElementById('step-' + step.id);
+    if (el) el.classList.toggle('completed', !!state.checked[step.id]);
+  });
+}
+
+function confirmReset() {
+  if (confirm('Reset all progress? This cannot be undone.')) {
+    state.checked = {};
+    state.openSteps = {};
+    state.currentStage = 0;
+    saveState();
+    renderMain();
+    renderSidebar();
+    updateGlobalBar();
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+loadState();
+renderMain();
+renderSidebar();
+updateGlobalBar();
+</script>
+</body>
+</html>
