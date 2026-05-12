@@ -544,49 +544,49 @@ main {
 const STAGES = [
   {
     id: 's1',
-    name: 'Build the Foundation',
+    name: 'Foundation',
     icon: '🏗️',
     color: '#1a6b72',
     colorDim: 'rgba(26,107,114,0.1)',
-    deadline: 'Finish within 2 weeks',
+    deadline: 'May – June 2026',
     steps: [
       {
         id: 's1-1',
-        title: 'Create Your Master\'s Application Folder',
+        title: 'Create Your Application Folder System',
         details: [
           'CV', 'Transcripts', 'Certificates', 'Passport',
-          'Research Papers', 'SOP Drafts', 'Recommendation Letters',
-          'Universities', 'Supervisor Emails'
+          'SOP Drafts', 'Recommendation Letters',
+          'Research Outputs', 'Universities', 'Supervisor Emails'
         ],
         tip: 'Use Google Drive or a local folder — just pick one and stay consistent. You\'ll be adding files to these for the next 12 months.'
       },
       {
         id: 's1-2',
-        title: 'Open Your Application Tracker Spreadsheet',
+        title: 'Create Your Master Spreadsheet (Control Centre)',
         details: [
           'University', 'Country', 'Program', 'Deadline',
-          'Funding Available?', 'Supervisor Name', 'Contacted?',
-          'Response?', 'Notes'
+          'Funding availability', 'Supervisor',
+          'Contacted?', 'Response', 'Notes'
         ],
-        tip: 'Google Sheets works perfectly. This becomes your command centre for the entire application cycle.'
+        tip: 'This spreadsheet is your single source of truth. Everything application-related lives here. Open it every week.'
       },
       {
         id: 's1-3',
-        title: 'Write Your Research Interests in Plain English',
+        title: 'Write Your Raw Research Interests (No Polishing)',
         details: [
-          'What healthcare problems have I seen in clinical practice?',
-          'What problems do I want to solve through research?',
-          'Why do I want formal research training (MSc)?',
-          'What specific topics interest me most?'
+          'What clinical problems have I seen?',
+          'What frustrates me in healthcare?',
+          'What do I want to fix?',
+          'What topics naturally interest me?'
         ],
-        tip: 'Do NOT worry about sounding smart here. Write plainly. This document becomes the raw material for your SOP and supervisor emails.'
+        tip: 'Do NOT worry about sounding smart here. Write plainly and honestly. This becomes the raw material for your SOP and every supervisor email.'
       },
       {
         id: 's1-4',
-        title: 'Choose Your Main Research Direction',
+        title: 'Define Your Core Research Direction',
         details: [
-          'Pick ONE primary direction (e.g. Translational medicine, Cardiovascular outcomes, Healthcare systems, Immunomodulation, Digital health)',
-          'Pick ONE supporting direction (e.g. AI in healthcare, Emergency medicine systems, Global health)'
+          '1 primary focus (e.g. translational medicine / systems / cardio / immunology)',
+          '1 secondary focus (e.g. digital health / AI / emergency systems)'
         ],
         tip: 'Focus is everything. Supervisors are drawn to candidates who know what they want — not candidates who want everything.'
       },
@@ -594,20 +594,23 @@ const STAGES = [
         id: 's1-5',
         title: 'Build Version 1 of Your Academic CV',
         details: [
-          'Education', 'Clinical experience', 'Leadership & roles',
-          'Awards & recognition', 'Research interests', 'Publications or presentations',
-          'Projects', 'Skills'
+          'MBChB and education',
+          'Clinical experience',
+          'Leadership roles',
+          'Awards and recognition',
+          'Research interests',
+          'PERKS involvement',
+          'Any academic output (abstracts, publications, posters)'
         ],
-        tip: 'Do not aim for perfection. Version 1 just needs to exist. You\'ll refine it multiple times over the coming months.'
+        tip: 'Do not aim for perfection. Version 1 just needs to exist. You\'ll refine it multiple times.'
       },
       {
         id: 's1-6',
-        title: 'Update Your LinkedIn Profile',
+        title: 'Update LinkedIn',
         details: [
-          'Headline (e.g. "MBChB | Clinical Researcher | MSc Applicant — Fall 2027")',
+          'Headline (e.g. "MBChB | Clinician-Researcher | MSc Applicant — Fall 2027")',
           'About section (3–4 sentences: background, interests, goals)',
           'Experience (all clinical and academic roles)',
-          'Awards & recognitions',
           'Interests (relevant research areas)'
         ],
         tip: 'Many supervisors will look you up. Make sure what they find is polished and research-forward.'
@@ -616,15 +619,15 @@ const STAGES = [
   },
   {
     id: 's2',
-    name: 'Build Research Signals',
+    name: 'Early Research Signals',
     icon: '📡',
     color: '#8b3a52',
     colorDim: 'rgba(139,58,82,0.1)',
-    deadline: 'June – July 2026',
+    deadline: 'June – August 2026',
     steps: [
       {
         id: 's2-1',
-        title: 'Pick ONE Research Output to Start',
+        title: 'Choose ONE Research Output to Start',
         details: [
           'Case report',
           'Literature review',
@@ -633,46 +636,55 @@ const STAGES = [
           'Commentary piece',
           'PERKS concept paper'
         ],
-        tip: 'Only one. Starting multiple outputs at once usually means finishing none. Pick what is most feasible given your current access to data and time.',
+        tip: 'Only one. Starting multiple outputs at once usually means finishing none. Pick what is most feasible given your access to data and time.',
         tag: 'urgent'
       },
       {
         id: 's2-2',
-        title: 'Create a Research Reading Routine',
+        title: 'Join ONE Meaningful Community or Health Initiative',
         details: [
-          'Read 2–3 papers per week minimum',
-          'Use PubMed and Google Scholar',
-          'Focus on: abstracts, introductions, conclusions',
+          'Emergency care awareness',
+          'Public health outreach',
+          'CPR / basic life support training',
+          'Medical student mentorship',
+          'Digital health or innovation initiative'
+        ],
+        tip: 'Goal: real involvement, not CV padding. One genuine commitment beats five tokenistic ones. Pick something you\'d do even without an application deadline.'
+      },
+      {
+        id: 's2-3',
+        title: 'Start a Structured Reading Routine',
+        details: [
+          'Read 2–3 papers weekly using PubMed and Google Scholar',
+          'Focus on: abstracts, conclusions, introductions',
           'Keep brief notes on papers relevant to your research direction'
         ],
         tip: 'Reading widely now means you\'ll have things to say in supervisor emails and interviews later.',
         tag: 'ongoing'
       },
       {
-        id: 's2-3',
-        title: 'Install Your Research Tools',
+        id: 's2-4',
+        title: 'Set Up Research Tools',
         details: [
-          'Zotero — reference manager (free)',
-          'Google Scholar alerts — set for your key topics',
-          'PDF organization folders (mirror your application folder structure)'
+          'Zotero — reference manager (free, essential)',
+          'Google Scholar alerts — set up for your key topics'
         ],
         tip: 'Zotero will save you hours when writing. Set it up now, not during your literature review.'
       },
       {
-        id: 's2-4',
-        title: 'Request Your Official Transcript',
+        id: 's2-5',
+        title: 'Request Your Official Transcript Early',
         details: [
-          'Contact your university registrar or records office',
-          'Request official sealed transcript (and a digital version if possible)',
-          'Ask about typical processing time',
-          'Store in your Transcripts folder'
+          'Contact your university registrar or records office now',
+          'Request an official sealed transcript (and digital copy if possible)',
+          'Ask about typical processing time — start early'
         ],
         tip: 'Do NOT delay this. Some universities take 4–8 weeks. Start the process now.',
         tag: 'urgent'
       },
       {
-        id: 's2-5',
-        title: 'Scan and Organize Your Key Documents',
+        id: 's2-6',
+        title: 'Organize and Scan All Key Documents',
         details: [
           'Passport (photo page)',
           'MBChB certificate',
@@ -687,58 +699,72 @@ const STAGES = [
   },
   {
     id: 's3',
-    name: 'Build Your School List',
+    name: 'Universities & Supervisors',
     icon: '🗺️',
     color: '#b8860b',
     colorDim: 'rgba(184,134,11,0.1)',
-    deadline: 'July 2026',
+    deadline: 'July – September 2026',
     steps: [
       {
         id: 's3-1',
-        title: 'Select Your Target Countries',
+        title: 'Choose Your Target Countries',
         details: [
-          'Canada (primary)',
-          '2–3 European countries — recommended: Germany, Netherlands, Sweden, Belgium'
+          'Canada — primary target',
+          '2–3 European countries for funding diversity and backup',
+          'Recommended: Germany, Netherlands, Sweden, Belgium'
         ],
-        tip: 'Germany and the Netherlands offer many English-language MSc programs with strong research cultures. Sweden and Belgium have excellent funding schemes for international students.'
+        tip: 'Germany and the Netherlands have strong research cultures and many English-language programmes. Sweden and Belgium have excellent international funding schemes.'
       },
       {
         id: 's3-2',
-        title: 'Find 15 Target Universities',
+        title: 'Build a List of 10–15 Universities',
         details: [
-          '8–10 in Canada',
+          '5–8 in Canada',
           '5–7 in Europe',
-          'Add each to your tracker spreadsheet with country, program, deadline, and funding notes'
+          'Add each to your tracker spreadsheet with country, program, and funding notes'
         ]
       },
       {
         id: 's3-3',
         title: 'Identify Programs at Each University',
         details: [
-          'Find the specific MSc programs relevant to your research direction',
+          'Find the specific MSc program relevant to your research direction',
           'Record exact application deadlines',
+          'Note funding type (funded, self-funded, scholarship-dependent)',
           'Note all requirements (GPA, English test, references, writing samples)'
         ],
         tip: 'Some programs have rolling admissions, others have hard deadlines. The earlier the deadline, the earlier you must prepare.'
       },
       {
         id: 's3-4',
-        title: 'Identify Potential Supervisors (20–40 total)',
+        title: 'Identify Supervisors — 20 to 40 Total',
         details: [
           'Find 3–5 professors per university',
-          'Read their lab pages and recent publications',
+          'Read their recent papers and lab pages',
           'Save their profiles and email addresses',
           'Note whether they are actively accepting graduate students'
         ],
-        tip: 'In Canada especially, having a supervisor willing to take you is often a prerequisite for admission — not just a nice-to-have.'
+        tip: 'In Canada especially, having a willing supervisor is often a prerequisite for admission — not just a nice-to-have.'
       },
       {
         id: 's3-5',
+        title: 'Start Building Academic Networks',
+        details: [
+          'Connect with researchers, residents, and grad students in your field',
+          'Engage with clinicians doing work you admire',
+          'Use LinkedIn, webinars, academic events, and conferences',
+          'Goal: genuine relationships, not follower counts'
+        ],
+        tip: 'Networking is a long game. Someone you meet at a webinar in August could introduce you to a supervisor in October.',
+        tag: 'ongoing'
+      },
+      {
+        id: 's3-6',
         title: 'Read at Least One Paper from Each Supervisor',
         details: [
-          'Look for their research themes',
+          'Look for their core research themes and methods',
           'Assess whether your interests genuinely overlap',
-          'Note specific projects or findings you can reference in outreach emails'
+          'Note specific findings or projects you can reference in outreach emails'
         ],
         tip: 'You are looking for real overlap — not the ability to fake it. Supervisors can tell the difference immediately.'
       }
@@ -746,7 +772,7 @@ const STAGES = [
   },
   {
     id: 's4',
-    name: 'Prepare for Outreach',
+    name: 'Outreach Preparation',
     icon: '✉️',
     color: '#5a4a8a',
     colorDim: 'rgba(90,74,138,0.1)',
@@ -754,32 +780,33 @@ const STAGES = [
     steps: [
       {
         id: 's4-1',
-        title: 'Write Version 1 of Your Research Interest Paragraph',
+        title: 'Write Your Research-Interest Paragraph',
         details: [
           'Keep it short: 3–5 sentences maximum',
-          'Focused: one or two specific areas',
+          'Focused on one or two specific areas',
           'Connected to your clinical experiences and observations',
           'Written in plain, clear language — no jargon'
         ],
-        tip: 'This paragraph will appear in nearly every supervisor email and many SOPs. Getting it right now saves enormous time.'
+        tip: 'This paragraph appears in nearly every supervisor email and many SOPs. Getting it right now saves enormous time later.'
       },
       {
         id: 's4-2',
-        title: 'Write a General Professor Email Template',
+        title: 'Draft Your Professor Email Template',
         details: [
           'Who you are (2 sentences max)',
-          'Your research interests (use your research interest paragraph)',
-          'Why their specific work interests you (reference a paper or project)',
-          'A clear, polite request — for a call, for information on openings, or to express intent to apply'
+          'Your research interests (use your research-interest paragraph)',
+          'Why their specific work interests you (cite a paper or project by name)',
+          'A clear, polite request — for a call, for information on openings, or to express intent to apply',
+          'Attach your CV'
         ],
         tip: 'Personalization is everything. A generic email gets ignored. A specific one — showing you read their work — gets remembered.'
       },
       {
         id: 's4-3',
-        title: 'Refine and Export Your CV',
+        title: 'Finalize CV Version 2',
         details: [
-          'Update formatting and consistency',
-          'Sharpen wording throughout',
+          'Improve clarity and formatting consistency',
+          'Sharpen research framing throughout',
           'Confirm your research interests section reflects your chosen direction',
           'Export as a clean, properly named PDF'
         ],
@@ -787,7 +814,7 @@ const STAGES = [
       },
       {
         id: 's4-4',
-        title: 'Contact Your First 5 Professors',
+        title: 'Begin Emailing Your First 5 Professors',
         details: [
           'Personalize every email — no copy-paste',
           'Attach your CV',
@@ -799,15 +826,25 @@ const STAGES = [
       },
       {
         id: 's4-5',
-        title: 'Continue Supervisor Outreach Weekly',
+        title: 'Continue Weekly Supervisor Outreach',
         details: [
           'Target 3–5 new professors per week',
           'Maintain your tracking spreadsheet',
           'Follow up politely after 2–3 weeks of silence',
           'Do NOT stop after rejections or non-responses'
         ],
-        tip: 'This step never fully ends until you have an offer. Make it a weekly habit.',
+        tip: 'This step never fully ends until you have an offer. Make it a non-negotiable weekly habit.',
         tag: 'ongoing'
+      },
+      {
+        id: 's4-6',
+        title: 'Attend at Least ONE Academic Event',
+        details: [
+          'Webinar, symposium, conference, or journal club',
+          'Engage actively if possible — ask questions, contribute to discussion',
+          'Connect with attendees and speakers on LinkedIn afterwards'
+        ],
+        tip: 'Passive attendance is fine. Active engagement is remembered. One good question in a Q&A can open a conversation.'
       }
     ]
   },
@@ -821,36 +858,36 @@ const STAGES = [
     steps: [
       {
         id: 's5-1',
-        title: 'Write Version 1 of Your SOP',
+        title: 'Write SOP Version 1',
         details: [
-          'Background — who you are, your clinical training',
-          'Clinical experiences — what you observed, what questions arose',
+          'Clinical background — who you are, your training',
+          'Exposure to problems — what you observed in practice, what questions arose',
           'Research interests — what you want to investigate and why',
-          'Why this field — the intellectual and personal case for research',
-          'Career goals — where you see yourself in 5–10 years',
-          'Why this university — specific lab, supervisor, or program features'
+          'Why an MSc — the case for research training',
+          'Why this program — specific lab, supervisor, or program strength',
+          'Long-term goals — where you see yourself in 5–10 years'
         ],
         tip: 'Version 1 does not need to be good. It needs to exist. You will revise it many times.'
       },
       {
         id: 's5-2',
-        title: 'Revise Your SOP Multiple Times',
+        title: 'Refine SOP Repeatedly',
         details: [
-          'Revise for clarity — is every sentence doing work?',
-          'Revise for focus — does it stay on your research story?',
-          'Revise for flow — does it read as one coherent narrative?',
-          'Revise for specificity — are your claims concrete, not vague?'
+          'Revise for clarity — is every sentence doing real work?',
+          'Revise for coherence — does it read as one research story?',
+          'Revise for specificity — are your claims concrete, not vague?',
+          'Revise for alignment — does it speak to each supervisor\'s work?'
         ],
         tip: 'Most applicants submit their second or third draft. The strongest applicants submit their eighth or ninth.',
         tag: 'ongoing'
       },
       {
         id: 's5-3',
-        title: 'Ask for Your Recommendation Letters',
+        title: 'Request Recommendation Letters',
         details: [
-          'Choose 2–3 referees: consultants, professors, or senior mentors who know your work well',
-          'Ask early — ideally 2–3 months before earliest deadline',
-          'Provide them with your CV, a draft SOP, and all relevant deadlines',
+          'Choose 2–3 referees: consultants, professors, or research mentors who know your work well',
+          'Ask early — ideally 2–3 months before your earliest deadline',
+          'Provide them with your CV, SOP draft, and all relevant deadlines',
           'Follow up politely 3–4 weeks before each deadline'
         ],
         tip: 'Give referees everything they need to write a strong, specific letter. A weak or generic reference can sink an otherwise strong application.'
@@ -861,24 +898,26 @@ const STAGES = [
         details: [
           'Check IELTS and TOEFL requirements for every school on your list',
           'Note minimum scores and which test each school accepts',
-          'Check if you qualify for any exemptions (e.g. prior English-medium education)'
-        ]
+          'Check if you qualify for exemptions (e.g. prior English-medium education)',
+          'Book your test sitting if required — do not wait'
+        ],
+        tip: 'Test centres fill up and scores take time to arrive. Book early and allow time for a resit if needed.',
+        tag: 'urgent'
       },
       {
         id: 's5-5',
-        title: 'Book English Test if Required',
+        title: 'Prepare for English Exam if Needed',
         details: [
-          'Book your IELTS or TOEFL sitting at least 6–8 weeks before your earliest application deadline',
-          'Allow time for a resit if needed'
-        ],
-        tip: 'Do NOT wait until deadlines approach. Test centres fill up and scores take time to arrive.',
-        tag: 'urgent'
+          'Complete preparation early — not in the weeks before a submission deadline',
+          'Take a practice test to identify gaps',
+          'Use official prep materials for your chosen test (IELTS or TOEFL)'
+        ]
       }
     ]
   },
   {
     id: 's6',
-    name: 'Final Application Prep',
+    name: 'Application Finalization',
     icon: '🎯',
     color: '#b8860b',
     colorDim: 'rgba(184,134,11,0.1)',
@@ -886,47 +925,47 @@ const STAGES = [
     steps: [
       {
         id: 's6-1',
-        title: 'Finalize Your University List',
+        title: 'Finalize University List — Cut to a Realistic Set',
         details: [
-          'Cut programs that are a poor research fit',
-          'Remove programs you cannot afford (tuition + living costs)',
-          'Keep a mix: reach, realistic, and safe schools',
+          'Remove programs with a poor research fit',
+          'Remove programs you genuinely cannot afford',
+          'Keep a mix: ambitious, realistic, and safe options',
           'Aim for 10–15 final programs'
         ]
       },
       {
         id: 's6-2',
-        title: 'Tailor Your SOP for Each School',
+        title: 'Tailor Your SOP for Each University',
         details: [
-          'Mention the specific supervisor(s) you hope to work with',
+          'Mention the specific supervisor(s) you hope to work with by name',
           'Reference the specific lab or research group',
           'Connect your interests to the program\'s known strengths',
-          'Keep each version feeling personal, not copy-pasted'
+          'Every version should feel personal — not copy-pasted'
         ],
         tag: 'ongoing'
       },
       {
         id: 's6-3',
-        title: 'Verify All Application Requirements',
+        title: 'Verify All Requirements for Each Application',
         details: [
-          'GPA requirements (some programs have minimums)',
-          'Number of references required',
-          'Transcript format (official sealed vs. digital)',
-          'Writing samples (some programs request these)',
-          'Funding application forms (some require separate submissions)'
+          'Transcripts — format required (official sealed vs. digital)',
+          'References — number required and submission method',
+          'Writing samples — some programs request these',
+          'Funding forms — some require separate scholarship applications'
         ],
+        tip: 'Missing one document can disqualify an otherwise strong application. Check every portal carefully.',
         tag: 'urgent'
       },
       {
         id: 's6-4',
-        title: 'Prepare Funding Applications',
+        title: 'Prepare Scholarship Applications',
         details: [
           'DAAD — German Academic Exchange Service (excellent for Germany)',
           'Erasmus Mundus — EU-funded joint Master\'s programmes',
-          'Departmental scholarships — check each university\'s financial aid page',
-          'Supervisor funding — some supervisors have grants covering tuition and stipend'
+          'University departmental scholarships — check each school\'s financial aid page',
+          'Supervisor funding — some supervisors have grants covering tuition and a stipend'
         ],
-        tip: 'Apply for every scholarship you are eligible for. Funding changes everything — it can turn a financially impossible programme into a real option.'
+        tip: 'Apply for every scholarship you are eligible for. Funding transforms a financially impossible programme into a real option.'
       }
     ]
   },
@@ -943,10 +982,10 @@ const STAGES = [
         title: 'Submit Canadian Applications First',
         details: [
           'Canadian graduate deadlines often fall November–January',
-          'Submit each application well before its deadline — not on the day',
-          'Confirm all components (references, transcripts, English scores) have arrived'
+          'Submit well before the deadline — not on the day',
+          'Confirm all components have arrived: references, transcripts, English scores'
         ],
-        tip: 'Canadian programs often require supervisors to be on board before admission. If you have confirmed supervisor interest, note this in your application.',
+        tip: 'Canadian programs often require a willing supervisor before admission. If you have confirmed supervisor interest, note this clearly in your application.',
         tag: 'urgent'
       },
       {
@@ -955,25 +994,25 @@ const STAGES = [
         details: [
           'Many European programs have later deadlines (January–March)',
           'Some have rolling admissions — apply as early as possible',
-          'German programs via uni-assist may have additional steps'
+          'German programs via uni-assist may have additional steps and earlier internal deadlines'
         ]
       },
       {
         id: 's7-3',
         title: 'Confirm Recommendation Letters Were Submitted',
         details: [
-          'Check your application portals for reference status',
-          'Follow up with referees politely if letters are missing',
-          'Thank referees once letters are confirmed received'
+          'Check every application portal for reference status',
+          'Follow up politely with referees if any letters are missing',
+          'Thank your referees once letters are confirmed received'
         ]
       },
       {
         id: 's7-4',
         title: 'Track All Submitted Applications',
         details: [
-          'Update your spreadsheet: submitted date, expected response timeline, portal login details',
-          'Set calendar reminders for expected decision windows',
-          'Check portals regularly — some programs email, others only update portals'
+          'Update spreadsheet: submitted date, expected response window, portal login details',
+          'Set calendar reminders for expected decision dates',
+          'Check portals regularly — some programs email decisions, others only update portals'
         ]
       }
     ]
@@ -990,47 +1029,48 @@ const STAGES = [
         id: 's8-1',
         title: 'Prepare for Interviews',
         details: [
-          'Practice discussing your research interests (clearly and concisely)',
-          'Prepare to walk through your clinical experiences',
-          'Be ready to articulate your long-term career goals',
-          'Have 1–2 specific research ideas you could elaborate on',
-          'Research the lab\'s current projects so you can ask informed questions'
+          'Practice articulating your research interests clearly and concisely',
+          'Prepare to walk through your clinical experiences and what they taught you',
+          'Be ready to discuss your long-term career goals',
+          'Have 1–2 specific research ideas you can elaborate on',
+          'Research each lab\'s current projects so you can ask informed questions'
         ],
-        tip: 'Interviews are conversations, not interrogations. The best interviews feel like two researchers excited about the same problem.'
+        tip: 'Interviews are conversations, not interrogations. The best ones feel like two people excited about the same problem.'
       },
       {
         id: 's8-2',
-        title: 'Continue Networking with Supervisors',
+        title: 'Continue Academic Networking',
         details: [
           'Stay in touch with supervisors who expressed interest',
-          'Share relevant papers or updates on your research output if appropriate',
+          'Share a relevant paper or update on your research output if appropriate',
           'Be professional and warm — not pushy'
         ],
+        tip: 'Relationships built now will matter beyond this application cycle. Stay engaged.',
         tag: 'ongoing'
       },
       {
         id: 's8-3',
         title: 'Review Offers Carefully',
         details: [
-          'Funding package (tuition covered? stipend? for how long?)',
-          'Supervisor fit (is this someone you could work with closely for 1–2 years?)',
-          'Research environment (lab size, departmental culture, access to collaborators)',
-          'Living costs relative to funding',
-          'Long-term opportunities (alumni outcomes, industry links, publication record of the lab)'
+          'Funding package — tuition covered? stipend? for how long?',
+          'Supervisor fit — is this someone you could work closely with for 1–2 years?',
+          'Research environment — lab culture, departmental resources, collaboration access',
+          'Living costs relative to the funding offered',
+          'Career alignment — alumni outcomes, publication record of the lab, industry links'
         ],
-        tip: 'An offer with a stipend is worth far more than a prestigious name without funding. Research the real cost of living, not just the tuition fee.'
+        tip: 'A funded offer at a good lab beats a prestigious name with no funding. Research the real cost of living, not just the tuition figure.'
       },
       {
         id: 's8-4',
         title: 'Accept Your Offer',
         details: [
-          'Send a formal acceptance email and sign any required documents',
-          'Notify other programs promptly (they have waitlisted candidates)',
+          'Send a formal acceptance and sign any required documents',
+          'Notify other programs promptly — they have waitlisted candidates',
           'Begin visa preparation for your destination country',
-          'Start financial planning (flights, housing deposit, first month expenses)',
+          'Start financial planning: flights, housing deposit, first month expenses',
           'Begin relocation planning'
         ],
-        tip: 'Congratulations — you earned this. Now begin the next journey.'
+        tip: 'You earned this. Now begin the next journey.'
       }
     ]
   }
